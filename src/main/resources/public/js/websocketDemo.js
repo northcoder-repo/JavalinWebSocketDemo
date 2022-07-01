@@ -15,7 +15,7 @@ $(document).ready(function () {
     });
 
     //Establish the WebSocket connection and set up event handlers
-    let ws = new WebSocket("ws://" + location.hostname + ":" + location.port + "/ticker");
+    let ws = new WebSocket("ws://" + location.hostname + ":" + location.port + "/tickerfeed");
     ws.onmessage = msg => updateTable(msg);
     ws.onclose = () => alert("WebSocket connection closed");
 

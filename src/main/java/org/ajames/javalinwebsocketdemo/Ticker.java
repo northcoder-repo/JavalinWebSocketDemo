@@ -1,6 +1,8 @@
 package org.ajames.javalinwebsocketdemo;
 
 import io.javalin.Javalin;
+import static io.javalin.apibuilder.ApiBuilder.get;
+import io.javalin.http.Handler;
 import io.javalin.websocket.WsContext;
 import java.util.Arrays;
 import java.util.List;
@@ -13,14 +15,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Ticker {
 
     private static final Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
-    private static int nextUserNumber = 1; // Assign to username for next connecting user
+    private static int nextUserNumber = 1; // not really used for this demo
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
             config.addStaticFiles("/public");
         }).start(7070);
-
-        app.ws("/ticker", ws -> {
+        
+        app.get("/ticker", ctx -> ctx.render("index.html"));
+        
+        app.ws("/tickerfeed", ws -> {
             ws.onConnect(ctx -> {
                 String username = "User" + nextUserNumber++;
                 userUsernameMap.put(ctx, username);
@@ -34,7 +38,7 @@ public class Ticker {
             });
         });
     }
-
+    
     private static void broadcastMessage(String message) {
         userUsernameMap.keySet().stream().filter(ctx -> ctx.session.isOpen())
                 .forEach(session -> {
