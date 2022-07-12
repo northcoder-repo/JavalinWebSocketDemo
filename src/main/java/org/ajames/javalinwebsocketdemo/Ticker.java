@@ -1,8 +1,6 @@
 package org.ajames.javalinwebsocketdemo;
 
 import io.javalin.Javalin;
-import static io.javalin.apibuilder.ApiBuilder.get;
-import io.javalin.http.Handler;
 import io.javalin.websocket.WsContext;
 import java.util.Arrays;
 import java.util.List;
