@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Ticker {
 
     private static final Map<WsContext, String> userUsernameMap = new ConcurrentHashMap<>();
-    private static int nextUserNumber = 1; // not really used for this demo
+    private static int nextUserNumber = 1; 
 
     public static void main(String[] args) {
         Javalin app = Javalin.create(config -> {
@@ -50,8 +50,8 @@ public class Ticker {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                final int i = new Random().nextInt(5);
-                final int j = new Random().nextInt(100);
+                final int i = new Random().nextInt(5); // pick a symbol from the array
+                final int j = new Random().nextInt(100); // generate a price
                 final String message = String.format("{\"symbol\": \"%s\", \"price\": %s}",
                         symbols.get(i), j);
                 broadcastMessage(message);

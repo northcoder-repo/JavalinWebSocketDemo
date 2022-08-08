@@ -16,7 +16,7 @@ $(document).ready(function () {
 
     //Establish the WebSocket connection and set up event handlers
     let ws = new WebSocket("ws://" + location.hostname + ":" + location.port + "/tickerfeed");
-    ws.onmessage = msg => updateTable(msg);
+    ws.onmessage = message => updateTable(message);
     ws.onclose = () => alert("WebSocket connection closed");
 
     function updateTable(message) {
